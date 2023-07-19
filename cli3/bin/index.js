@@ -41,6 +41,28 @@ service
   });
 program.addCommand(service);
 
+// ???? ma-cli3-install ????
+program
+  .command("install [name]", "安装一个包", {
+    executableFile: "create-react-app", // 可以实现多个脚手架之间串行使用
+    isDefault: true,
+    // hidden: true,
+  })
+  .alias("i");
+
+// 对注册的命令进行自动匹配, 类似于 yargs 的 demandCommands
+program
+  // .arguments("<cmd> [option]")
+  // .description("匹配命令", {
+  //   cmd: "命令",
+  //   option: "参数",
+  // })
+  .argument("<command>", "执行的命令")
+  .argument("[option]", "配置参数")
+  .action((cmd, option) => {
+    console.log("cmd, option", cmd, option);
+  });
+
 // 解析参数
 program.parse(process.argv);
 
