@@ -17,6 +17,10 @@ cli
     "需要传入一个 command, 输入 --help 查看所有可用的 command 和 option"
   )
   .strict()
+  .recommendCommands()
+  .fail((err, msg) => {
+    console.log(err);
+  })
   .alias("h", "help")
   .alias("v", "version")
   .wrap(cli.terminalWidth())
@@ -43,4 +47,27 @@ cli
     hidden: false, // 作用是 --help 中不显示，但是用户以然能够继续使用
     describe: "定义全局 registry",
   })
-  .group(["debug", "registry"], "开发环境 options: ").argv; // 创建一个脚手架
+  .group(["debug", "registry"], "开发环境 options: ")
+  .command(
+    "init [name]",
+    "初始化一个项目",
+    (yargs) => {
+      yargs.option("name", {
+        type: "string",
+        describe: "项目的名称",
+        alias: "n",
+      });
+    },
+    (argv) => {
+      console.log(argv);
+    }
+  )
+  .command({
+    command: "list",
+    aliases: ["ll", "ls"],
+    describe: "本地 package 列表",
+    builder: (yargs) => {},
+    handler: (argv) => {
+      console.log(argv);
+    },
+  }).argv; // 创建一个脚手架
