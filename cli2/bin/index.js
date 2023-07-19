@@ -1,26 +1,46 @@
 #!/usr/bin/env node
 
-const commands = {
-  init(args) {
-    console.log(
-      `command: init, option: ${args.option || "无"}, options 参数: ${
-        args.params || "无"
-      }`
-    );
-  },
-};
+const yargs = require("yargs/yargs");
+const { hideBin } = require("yargs/helpers");
+const dedent = require("dedent");
+const { boolean } = require("yargs");
 
-console.log("Welcome ! ma-cli1 是学习脚手架的启蒙版本");
-const argv = require("process").argv;
+// console.log(hideBin(process.argv)); // 参数解析 ['--help']
 
-const command = argv[2];
-const options = argv.slice(3);
-let [option, params] = options;
+const arg = hideBin(process.argv);
+const cli = yargs(arg);
 
-option = option?.replace("--", "");
-
-if (commands[command]) {
-  commands[command]({ option, params });
-} else {
-  console.log("请输入有效的命令 暂时只支持 init");
-}
+cli
+  .usage("使用方式: ma-cli2 [command] <options>")
+  .demandCommand(
+    1,
+    "需要传入一个 command, 输入 --help 查看所有可用的 command 和 option"
+  )
+  .strict()
+  .alias("h", "help")
+  .alias("v", "version")
+  .wrap(cli.terminalWidth())
+  .epilogue(
+    dedent`
+    ############## footer ###############
+    alias:     命令别名 
+    warp:      输出的内容在命令行中的宽度
+    epilogue:  相当于一个 footer
+    options:   主要用于增加全局的选项, 对所有的 command 都有效
+    #####################################
+  `
+  )
+  .options({
+    debug: {
+      type: "boolean",
+      describe: "启用调试模式",
+      alias: "d",
+      defaultDescription: "启用调试模式, 查看更多开发信息",
+    },
+  })
+  .option("registry", {
+    type: "string",
+    hidden: false, // 作用是 --help 中不显示，但是用户以然能够继续使用
+    describe: "定义全局 registry",
+  })
+  .group(["debug", "registry"], "开发环境 options: ").argv; // 创建一个脚手架
