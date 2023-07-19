@@ -18,6 +18,14 @@
   program.version(pkg.version).parse(process.argv);
 ```
 
-### 知识点
+和 yargs 不同的是，默认情况下就支持 -V -h
 
-和 yargs 不同的是，默认情况下就支持 -V -h 
+### 命令注册
+
+#### command 注册命令
+
+#### addCommand 注册命令
+
+可以注册子命令
+
+
