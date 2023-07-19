@@ -1,0 +1,15 @@
+{
+  "name": "@aaamrh/ma-cli2",
+  "version": "1.0.1",
+  "description": "基于 ma-cli1 的完善",
+  "main": "index.js",
+  "bin": {
+    "ma-cli2": "bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
