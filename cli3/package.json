@@ -1,0 +1,15 @@
+{
+  "name": "@aaamrh/ma-cli3",
+  "version": "1.0.0",
+  "description": "基于 cli1 的升级版， 使用 commander 构建脚手架",
+  "main": "index.js",
+  "bin": {
+    "ma-cli3": "bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
